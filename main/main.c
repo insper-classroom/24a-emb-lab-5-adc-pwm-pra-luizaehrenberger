@@ -56,6 +56,17 @@ void task_y(void *p){
     }
 }
 
+void write_package(adc_t data) {
+    int val = data.val;
+    int msb = val >> 8;
+    int lsb = val & 0xFF ;
+
+    uart_putc_raw(uart0, data.axis); 
+    uart_putc_raw(uart0, lsb);
+    uart_putc_raw(uart0, msb); 
+    uart_putc_raw(uart0, -1); 
+}
+
 void uart_task(void *p) {
     adc_t data;
 
