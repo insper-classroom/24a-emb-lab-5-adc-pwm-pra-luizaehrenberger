@@ -22,7 +22,7 @@ typedef struct adc {
 
 void task_x(void *p){
     adc_init();
-    adc_gpio_init(1);
+    adc_gpio_init(26);
 
     while(1) {
         adc_select_input(1);
@@ -40,7 +40,7 @@ void task_x(void *p){
 
 void task_y(void *p){
     adc_init();
-    adc_gpio_init(2);
+    adc_gpio_init(27);
 
     while(1) {
         adc_select_input(2);
@@ -75,12 +75,12 @@ void uart_task(void *p) {
 
         //deadzone
         data.val = (data.val-2047)/8;
-        int zone_limit = 80;
+        int zone_limit = 160;
         if (data.val <=zone_limit && data.val >= -1*(zone_limit)) {
             data.val = 0;
         }
-
-        write_package(data);
+        printf("axis: %d, val: %d\n", data.axis, data.val);
+        //write_package(data);
     }
 }
 
